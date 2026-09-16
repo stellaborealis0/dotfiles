@@ -1,0 +1,16 @@
+{{- /* Kilo Code Environment — Managed by chezmoi */ -}}
+{{- /* API keys are in ~/.env.kilo.secrets (local-only, not synced) */ -}}
+
+# Source API keys from local secrets file
+if [ -f "$HOME/.env.kilo.secrets" ]; then
+    . "$HOME/.env.kilo.secrets"
+fi
+
+# === Kilo Code Settings ===
+export KILO_DOOM_LOOP_PROTECTION=true
+export KILO_MAX_PARALLEL_AGENTS=2
+export KILO_AUTO_APPROVE_TIMEOUT=10000
+
+# === Machine Info ===
+export KILO_MACHINE_NAME="{{ .machine_name }}"
+export KILO_MACHINE_CLASS="{{ .machine_class }}"

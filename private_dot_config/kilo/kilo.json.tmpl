@@ -1,0 +1,133 @@
+{{- /* Kilo Code Global Config — Managed by chezmoi */ -}}
+{{- /* DO NOT edit directly. Edit the template in ~/.local/share/chezmoi/ */ -}}
+{
+  "$schema": "https://app.kilo.ai/config.json",
+  "model": "{{ .default_model }}",
+  "small_model": "{{ .default_small_model }}",
+  "default_agent": "code",
+  "instructions": [
+    ".kilo/rules/ahorro-global.md"
+  ],
+  "provider": {
+    "requesty": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Requesty (EU / Frankfurt)",
+      "options": {
+        "baseURL": "https://router.eu.requesty.ai/v1",
+        "apiKey": "{env:REQUESTY_API_KEY}"
+      },
+      "models": {
+        "bedrock/claude-sonnet-4-6@eu-central-1": {
+          "name": "Claude Sonnet 4.6 (Requesty EU - Frankfurt)"
+        },
+        "bedrock/claude-haiku-4-5@eu-central-1": {
+          "name": "Claude Haiku 4.5 (Requesty EU - Frankfurt)"
+        }
+      }
+    },
+    "alibaba-coding-plan": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Alibaba DashScope Coding Plan (Direct)",
+      "options": {
+        "baseURL": "https://coding-intl.dashscope.aliyuncs.com/v1",
+        "apiKey": "{env:DASHSCOPE_API_KEY}"
+      },
+      "models": {
+        "qwen3.7-plus": {
+          "name": "Qwen3.7 Plus",
+          "modalities": {
+            "input": ["text", "image"],
+            "output": ["text"]
+          },
+          "options": {
+            "thinking": {
+              "type": "enabled",
+              "budgetTokens": 1024
+            }
+          }
+        },
+        "qwen3.6-plus": {
+          "name": "Qwen3.6 Plus",
+          "modalities": {
+            "input": ["text", "image"],
+            "output": ["text"]
+          },
+          "options": {
+            "thinking": {
+              "type": "enabled",
+              "budgetTokens": 1024
+            }
+          }
+        },
+        "qwen3.5-plus": {
+          "name": "Qwen3.5 Plus",
+          "options": {
+            "thinking": {
+              "type": "enabled",
+              "budgetTokens": 1024
+            }
+          }
+        },
+        "qwen3-max-2026-01-23": { "name": "Qwen3 Max 0123" },
+        "qwen3-coder-next": { "name": "Qwen3 Coder Next" },
+        "qwen3-coder-plus": { "name": "Qwen3 Coder Plus" },
+        "MiniMax-M2.5": { "name": "MiniMax M2.5" },
+        "glm-5": {
+          "name": "GLM-5",
+          "options": {
+            "thinking": { "type": "enabled", "budgetTokens": 1024 }
+          }
+        },
+        "glm-4.7": { "name": "GLM-4.7" },
+        "kimi-k2.5": {
+          "name": "Kimi K2.5",
+          "options": {
+            "thinking": { "type": "enabled", "budgetTokens": 1024 }
+          }
+        }
+      }
+    },
+    "nvidia": {
+      "options": {
+        "baseURL": "https://integrate.api.nvidia.com/v1",
+        "apiKey": "{env:NVIDIA_API_KEY}"
+      },
+      "models": {
+        "meta/llama-3.1-70b-instruct": { "name": "Llama 3.1 70B Instruct" },
+        "meta/llama-3.1-8b-instruct": { "name": "Llama 3.1 8B Instruct" }
+      }
+    }
+  },
+  "mcp": {
+    "context7": { "enabled": true },
+    "github": { "enabled": false },
+{{- if .enable_google_workspace_mcp }}
+    "google-workspace": {
+      "type": "local",
+      "command": [
+        "{{ .chezmoi.homeDir }}/.config/kilo/scripts/workspace-mcp-wrapper.sh"
+      ],
+      "environment": {},
+      "enabled": true
+    },
+{{- end }}
+{{- if .enable_jupyter_mcp }}
+    "jupyter-ai": {
+      "type": "http",
+      "url": "http://127.0.0.1:3001/mcp",
+      "enabled": true
+    }{{ if .enable_saa_mcp }},{{ end }}
+{{- end }}
+{{- if .enable_saa_mcp }}
+    "saa-mcp": {
+      "type": "remote",
+      "url": "http://localhost:8090",
+      "enabled": true
+    }
+{{- end }}
+  },
+  "permission": {
+    "*": "allow",
+    "bash": "allow"
+  }
+}
