@@ -4,7 +4,7 @@ After=graphical-session-pre.target
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash -c 'set -e; source "/Users/gerardo/.env.kilo.secrets" 2>/dev/null || true; systemctl --user import-environment REQUESTY_API_KEY NVIDIA_API_KEY DASHSCOPE_API_KEY GROQ_API_KEY OPENROUTER_API_KEY KILO_MACHINE_NAME KILO_DOOM_LOOP_PROTECTION KILO_MAX_PARALLEL_AGENTS KILO_AUTO_APPROVE_TIMEOUT'
+ExecStart=/bin/bash -c 'set -e; source "/Users/gerardo/.env.kilo.secrets" 2>/dev/null || true; systemctl --user import-environment REQUESTY_API_KEY NVIDIA_API_KEY DASHSCOPE_API_KEY GROQ_API_KEY TYPESAFE_API_KEY OPENROUTER_API_KEY KILO_MACHINE_NAME KILO_DOOM_LOOP_PROTECTION KILO_MAX_PARALLEL_AGENTS KILO_AUTO_APPROVE_TIMEOUT'
 RemainAfterExit=yes
 
 [Install]
