@@ -5,11 +5,10 @@
 # === Machine-specific settings ===
 export KILO_MACHINE_NAME="{{ .machine_name }}"
 export KILO_MACHINE_CLASS="{{ .machine_class }}"
-export KILO_MACHINE_ID="{{ .machine_id }}"
 
 # Optional: Override default settings per machine
-# export KILO_MAX_PARALLEL_AGENTS={{ .machine_max_agents }}
-# export KILO_AUTO_APPROVE_TIMEOUT={{ .machine_timeout }}
+# export KILO_MAX_PARALLEL_AGENTS=2
+# export KILO_AUTO_APPROVE_TIMEOUT=10000
 
 # Source machine-specific API keys from the same secrets file
 # If you need machine-specific keys, use separate .env files:
